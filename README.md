@@ -1,5 +1,19 @@
 # Sistema de Controle de Despesas Pessoais 
 
+# Screenshots
+![Captura de tela de 2026-10-02 20-19-57.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-19-57.png)
+![Captura de tela de 2026-10-02 20-20-02.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-02.png)
+![Captura de tela de 2026-10-02 20-20-07.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-07.png)
+![Captura de tela de 2026-10-02 20-20-11.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-11.png)
+![Captura de tela de 2026-10-02 20-20-16.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-16.png)
+![Captura de tela de 2026-10-02 20-20-21.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-21.png)
+![Captura de tela de 2026-10-02 20-20-27.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-27.png)
+
+
+
+
+
+
 Um sistema completo para gerenciamento de finanças pessoais, projetado para uso local, permitindo o controle rigoroso de receitas, despesas, saldo e geração de relatórios.
 
 ##  Tecnologias Utilizadas
@@ -19,7 +33,7 @@ Um sistema completo para gerenciamento de finanças pessoais, projetado para uso
 
 ---
 
-## ⚙️ Funcionalidades
+## Funcionalidades
 
 ### Implementadas
 * **Gestão de Despesas e Receitas:** Operações completas de CRUD (Create, Read, Update, Delete com *soft-delete*).
