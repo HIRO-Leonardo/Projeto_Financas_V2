@@ -1,15 +1,13 @@
 # Sistema de Controle de Despesas Pessoais 
 
 # Screenshots
-![Captura de tela de 2026-10-02 20-19-57.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-19-57.png)
-![Captura de tela de 2026-10-02 20-20-02.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-02.png)
-![Captura de tela de 2026-10-02 20-20-07.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-07.png)
-![Captura de tela de 2026-10-02 20-20-11.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-11.png)
-![Captura de tela de 2026-10-02 20-20-16.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-16.png)
-![Captura de tela de 2026-10-02 20-20-21.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-21.png)
-![Captura de tela de 2026-10-02 20-20-27.png](../../../../Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202026-10-02%2020-20-27.png)
-
-
+<img width="1851" height="938" alt="Captura de tela de 2026-10-02 20-19-57" src="https://github.com/user-attachments/assets/c403f1ea-95b9-4c3e-9e76-99165775fc81" />
+<img width="1851" height="938" alt="Captura de tela de 2026-10-02 20-20-02" src="https://github.com/user-attachments/assets/c6468213-f77c-4d7d-aaa4-b7591ec34c8d" />
+<img width="1851" height="938" alt="Captura de tela de 2026-10-02 20-20-07" src="https://github.com/user-attachments/assets/93316b80-e832-4684-9427-d820e88e80ac" />
+<img width="1851" height="938" alt="Captura de tela de 2026-10-02 20-20-11" src="https://github.com/user-attachments/assets/6d7039e1-ff97-46ad-a3a8-51a0a6074c72" />
+<img width="1851" height="938" alt="Captura de tela de 2026-10-02 20-20-16" src="https://github.com/user-attachments/assets/10867fe8-32fb-47b4-893c-392ee48d6683" />
+<img width="1851" height="938" alt="Captura de tela de 2026-10-02 20-20-21" src="https://github.com/user-attachments/assets/451210b0-a8fe-412c-8471-89c6883edf99" />
+<img width="1851" height="938" alt="Captura de tela de 2026-10-02 20-20-27" src="https://github.com/user-attachments/assets/8e7c3195-b039-489f-bf03-ee54241f9cbb" />
 
 
 
