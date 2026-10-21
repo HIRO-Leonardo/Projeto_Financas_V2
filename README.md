@@ -100,4 +100,5 @@ Com o back-end em execução, você pode acessar a interface do Swagger para exp
 ---
 
 ##  Desenvolvedor
+Link do meu Linkedin: https://www.linkedin.com/in/leonardo-teixeira-desenvolvedor/
 Projeto de autoria e uso pessoal, desenvolvido de forma iterativa focando em boas práticas, código limpo e arquitetura robusta com Spring Boot e Angular.
