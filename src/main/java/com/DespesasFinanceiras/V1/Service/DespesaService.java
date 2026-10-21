@@ -2,6 +2,7 @@ package com.DespesasFinanceiras.V1.Service;
 
 import com.DespesasFinanceiras.V1.DTOS.DespesaDTO;
 import com.DespesasFinanceiras.V1.Entity.DespesasEntity;
+import com.DespesasFinanceiras.V1.Entity.ReceitaEntity;
 import com.DespesasFinanceiras.V1.Enuns.SituacaoEnum;
 import com.DespesasFinanceiras.V1.Exceptions.NotFoundException;
 import com.DespesasFinanceiras.V1.Repository.DespesasRepository;
@@ -57,7 +58,7 @@ public class DespesaService {
 
     public boolean deleteDespesa(Long id){
         if (!despesasRepository.existsById(id)){
-            throw new RuntimeException("Despesa não encontrada com id: " + id);
+            throw new NotFoundException("Despesa não encontrada com id: " + id);
         }
         despesasRepository.deleteById(id);
         return true;
@@ -100,4 +101,11 @@ public class DespesaService {
         return despesasRepository.findAllByOrderByIdDesc(PageRequest.of(page,size, Sort.by(Sort.Direction.DESC, "id")));
 
     }
+
+
+    public DespesasEntity findById(Long id){
+        return despesasRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Receita não encontrada com id "));
+    }
+
 }
