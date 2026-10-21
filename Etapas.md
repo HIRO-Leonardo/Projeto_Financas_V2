@@ -7,8 +7,8 @@
 
 ## ✅ Já feito
 
-- [x] Entidades `DespesasEntity` e `ReceitaEntity`
-- [x] Enums de categoria (despesa e receita) e `SituacaoEnum`
+- [x] Entidades `DespesasEntityTest` e `ReceitaEntityTest`
+- [x] Enums de categoria (despesa e receita) e `SituacaoEnumTest`
 - [x] CRUD completo: create, listar, update, delete (com soft-delete)
 - [x] Query de soma (`SUM`) por situação com `@Query`
 ---

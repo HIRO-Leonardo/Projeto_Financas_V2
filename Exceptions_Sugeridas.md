@@ -1,6 +1,6 @@
 # Lista de Exceptions Sugeridas (Projeto Finanças)
 
-Aqui estão as exceções recomendadas para você criar manualmente no seu pacote `com.DespesasFinanceiras.V1.Exceptions`. Você pode criá-las seguindo a mesma estrutura da sua `NotFoundException` e depois mapeá-las no `RestExceptionHandler`.
+Aqui estão as exceções recomendadas para você criar manualmente no seu pacote `com.DespesasFinanceiras.V1.Exceptions`. Você pode criá-las seguindo a mesma estrutura da sua `NotFoundExceptionTest` e depois mapeá-las no `RestExceptionHandlerTest`.
 
 ### 1. `RegraDeNegocioException`
 * **Herança:** `RuntimeException`
@@ -8,7 +8,7 @@ Aqui estão as exceções recomendadas para você criar manualmente no seu pacot
 * **Quando lançar:** Violações gerais das regras de negócio do sistema. 
   * *Exemplo:* Tentar deletar uma despesa que já tem a situação `PAGA`.
 
-### 2. `ValorInvalidoException`
+### 2. `ValorInvalidoExceptionTest`
 * **Herança:** `RuntimeException`
 * **Status HTTP ideal no Handler:** `400 Bad Request`
 * **Quando lançar:** Inconsistências nos valores monetários (campo `valor` em Despesas/Receitas).
@@ -17,10 +17,10 @@ Aqui estão as exceções recomendadas para você criar manualmente no seu pacot
 ### 3. `StatusInvalidoException`
 * **Herança:** `RuntimeException`
 * **Status HTTP ideal no Handler:** `400 Bad Request`
-* **Quando lançar:** Uso incorreto do seu `SituacaoEnum`.
-  * *Exemplo:* Tentar cadastrar uma `DespesasEntity` e enviar no JSON a situação `RECEBIDO` (que faz sentido apenas para Receitas).
+* **Quando lançar:** Uso incorreto do seu `SituacaoEnumTest`.
+  * *Exemplo:* Tentar cadastrar uma `DespesasEntityTest` e enviar no JSON a situação `RECEBIDO` (que faz sentido apenas para Receitas).
 
-### 4. `RegistroDuplicadoException`
+### 4. `RegistroDuplicadoExceptionTest`
 * **Herança:** `RuntimeException`
 * **Status HTTP ideal no Handler:** `409 Conflict`
 * **Quando lançar:** Para evitar que cadastros duplos aconteçam por acidente.
@@ -40,4 +40,4 @@ Aqui estão as exceções recomendadas para você criar manualmente no seu pacot
 
 ---
 **Dica para a criação na mão:**
-Basta criar a classe, fazer o `extends RuntimeException`, gerar o construtor que recebe a `String message` (com o `super(message)`) e depois mapeá-las no seu `@ControllerAdvice` (`RestExceptionHandler`).
+Basta criar a classe, fazer o `extends RuntimeException`, gerar o construtor que recebe a `String message` (com o `super(message)`) e depois mapeá-las no seu `@ControllerAdvice` (`RestExceptionHandlerTest`).

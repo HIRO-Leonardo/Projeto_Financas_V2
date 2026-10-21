@@ -20,7 +20,7 @@ private String autor;
 @NotBlank(message = "O autor é obrigatório")
 private String autor;
 ```
-- Atualize também a conversão de DTO para Entidade que acontece no seu `DespesaService`.
+- Atualize também a conversão de DTO para Entidade que acontece no seu `DespesaServiceTest`.
 
 ### 1.3 Banco de Dados (PostgreSQL)
 - Como você usa `spring.jpa.hibernate.ddl-auto=update` no seu `application-dev.properties`, o Hibernate vai criar a coluna `autor` automaticamente na tabela `despesas_entity` ao rodar a aplicação.
@@ -65,7 +65,7 @@ export interface DespesaDTO {
 ```typescript
 form: any = { 
   name: '', descricao: '', valor: 0, 
-  localDateTime: '', categoriaEnum: '', situacaoEnum: 'A_PAGAR',
+  localDateTime: '', categoriaEnum: '', situacaoEnumTest: 'A_PAGAR',
   autor: '' // <--- Novo campo inicializado
 };
 ```
