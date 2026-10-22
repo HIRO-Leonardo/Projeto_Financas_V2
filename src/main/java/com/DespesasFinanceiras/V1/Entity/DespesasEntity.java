@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class DespesasEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,6 +47,17 @@ public class DespesasEntity {
 
     @Schema(description = "Quem fez a despesa", example = "Daniel", required = true)
     private String autor;
+
+    public DespesasEntity(Long id, String name, String descricao, BigDecimal valor, LocalDateTime localDateTime, CategoriaEnum categoriaEnum, SituacaoEnum situacaoEnum, String autor) {
+        this.id = id;
+        this.name = name;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.localDateTime = localDateTime;
+        this.categoriaEnum = categoriaEnum;
+        this.situacaoEnum = situacaoEnum;
+        this.autor = autor;
+    }
 
     public DespesasEntity(DespesaDTO dto){
         this.name = dto.name();
