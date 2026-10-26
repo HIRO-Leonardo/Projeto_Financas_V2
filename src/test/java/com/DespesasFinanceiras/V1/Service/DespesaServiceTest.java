@@ -6,6 +6,7 @@ import com.DespesasFinanceiras.V1.Enuns.*;
 import com.DespesasFinanceiras.V1.Exceptions.NotFoundException;
 import com.DespesasFinanceiras.V1.Repository.DespesasRepository;
 import com.DespesasFinanceiras.V1.Repository.DespesasRepositoryTest;
+import com.DespesasFinanceiras.V1.Repository.TotalPorCategoria;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -293,6 +297,59 @@ public class DespesaServiceTest {
         var result = service.listBetweenTwoMonthDespesa(2026,9,2026,10);
 
         Assertions.assertEquals("Azur lane", result.get(0).get(0).getName());
+    }
+
+    @Test
+    void deveRetornarUmaListaComPageable(){
+        Page<DespesasEntity> paginaFalsa = new PageImpl<>(List.of(despesasEntity1,despesasEntity2,despesasEntity3));
+        Mockito.when(despesasRepositoryTest.findAllByOrderByIdDesc(Mockito.any(Pageable.class))).thenReturn(paginaFalsa);
+
+        var result = service.findAllByOrderByIdDesc(1,5);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(3, result.getTotalElements());
+        Assertions.assertEquals(1, result.getTotalPages());
+        Assertions.assertEquals("Claude Code", result.getContent().get(0).getName());
+    }
+
+    @Test
+    void deveRetornarUmaListaPeloAutor(){
+        Mockito.when(despesasRepositoryTest.findByAutor("Daniel")).thenReturn(List.of(despesasEntity1,despesasEntity2,despesasEntity3));
+
+        var result = service.findByAutorList("Daniel");
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(3, result.size());
+        Assertions.assertEquals("Claude Code", result.get(0).getName());
+
+    }
+
+    @Test
+    void deveRetornarUmRelatorioMensal(){
+        TotalPorCategoria categoria1 = Mockito.mock(TotalPorCategoria.class);
+
+        Mockito.when(categoria1.getCategoria()).thenReturn(CategoriaEnum.valueOf("ALIMENTACAO"));
+        Mockito.when(categoria1.getValor()).thenReturn(new BigDecimal("300.00"));
+
+        TotalPorCategoria categoria2 = Mockito.mock(TotalPorCategoria.class);
+
+        Mockito.when(categoria2.getCategoria()).thenReturn(CategoriaEnum.valueOf("LAZER"));
+        Mockito.when(categoria2.getValor()).thenReturn(new BigDecimal("100.00"));
+
+        Mockito.when(despesasRepositoryTest.totalPorCategoriaPorMes(10,2026)).thenReturn(List.of(categoria1,categoria2));
+
+        var result = service.relatorioMensal(10,2026);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(2,result.size());
+
+        Assertions.assertEquals(CategoriaEnum.valueOf("ALIMENTACAO"), result.get(0).getCategoria());
+        Assertions.assertEquals(new BigDecimal("300.00"), result.get(0).getValor());
+
+        Assertions.assertEquals(CategoriaEnum.valueOf("LAZER"), result.get(1).getCategoria());
+        Assertions.assertEquals(new BigDecimal("100.00"), result.get(1).getValor());
+
+        Mockito.verify(despesasRepositoryTest, Mockito.times(1)).totalPorCategoriaPorMes(10,2026);
     }
 
 }
