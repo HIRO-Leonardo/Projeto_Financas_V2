@@ -4,114 +4,150 @@ import com.DespesasFinanceiras.V1.DTOS.ReceitaDTO;
 import com.DespesasFinanceiras.V1.Entity.ReceitaEntity;
 import com.DespesasFinanceiras.V1.Enuns.CategoriaReceitaEnum;
 import com.DespesasFinanceiras.V1.Enuns.SituacaoEnum;
-import com.DespesasFinanceiras.V1.Enuns.SituacaoEnumTest;
-import com.DespesasFinanceiras.V1.Exceptions.NotFoundException;
 import com.DespesasFinanceiras.V1.Repository.ReceitaRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Service
+@ExtendWith(MockitoExtension.class)
 public class ReceitaServiceTest {
-    private final ReceitaRepository receitaRepository;
 
-    public ReceitaServiceTest(ReceitaRepository receitaRepository) {
-        this.receitaRepository = receitaRepository;
+    @Mock
+    private ReceitaRepository receitaRepository;
+
+    @Mock
+    private ReceitaService receitaService;
+
+    @Mock
+    private ReceitaEntity receitaEntity1;
+
+    @Mock
+    private ReceitaEntity receitaEntity2;
+
+    @Mock
+    private ReceitaEntity receitaEntity3;
+
+    @Mock
+    private ReceitaEntity receitaEntity4;
+
+    @Mock
+    private ReceitaEntity receitaEntity5;
+
+    @Mock
+    private ReceitaDTO receitaDTO1;
+
+    @Mock
+    private ReceitaDTO receitaDTO2;
+
+    @BeforeEach
+    void setup(){
+        receitaService = new ReceitaService(receitaRepository);
+
+        receitaEntity1 = new ReceitaEntity("n/a",
+                "Salario",
+                new BigDecimal("900.00"),
+                CategoriaReceitaEnum.SALARIO,
+                LocalDateTime.now(),
+                SituacaoEnum.PAGA,
+                "Leonardo");
+
+        receitaEntity2 = new ReceitaEntity("n/a",
+                "Salario",
+                new BigDecimal("930.00"),
+                CategoriaReceitaEnum.SALARIO,
+                LocalDateTime.now(),
+                SituacaoEnum.PAGA,
+                "Leonardo");
+
+        receitaEntity3 = new ReceitaEntity(20l,"n/a",
+                "Salario",
+                new BigDecimal("935.00"),
+                CategoriaReceitaEnum.SALARIO,
+                LocalDateTime.now(),
+                SituacaoEnum.PAGA,
+                "Leonardo");
+
+        receitaEntity4 = new ReceitaEntity("n/a",
+                "Salario",
+                new BigDecimal("900.00"),
+                CategoriaReceitaEnum.SALARIO,
+                LocalDateTime.now(),
+                SituacaoEnum.PAGA,
+                "Daniel");
+
+        receitaEntity5 = new ReceitaEntity(1l,"n/a",
+                "Salario",
+                new BigDecimal("900.00"),
+                CategoriaReceitaEnum.SALARIO,
+                LocalDateTime.now(),
+                SituacaoEnum.PAGA,
+                "Daniel");
+
+
+        receitaDTO1 = new ReceitaDTO("Salario",
+                new BigDecimal("900.00"),
+                "n/a",
+                CategoriaReceitaEnum.SALARIO,
+                LocalDateTime.now(),
+                SituacaoEnum.PAGA,
+                "Leonardo");
+
+        receitaDTO2 = new ReceitaDTO("Salario",
+                new BigDecimal("935.00"),
+                "n/a",
+                CategoriaReceitaEnum.SALARIO,
+                LocalDateTime.now(),
+                SituacaoEnum.PAGA,
+                "Leonardo");
+    };
+
+    @Test
+    void deveSalvarReceitaNoBanco(){
+        Mockito.when(receitaRepository.save(Mockito.any(ReceitaEntity.class))).thenReturn(receitaEntity1);
+        System.out.println(receitaEntity1.getValor());
+        var result = receitaService.createReceita(receitaDTO1);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(new BigDecimal("900.00"), result.getValor());
     }
 
+    @Test
+    void deveRetornarReceitaPeloId(){
+        Mockito.when(receitaRepository.findById(1l)).thenReturn(Optional.ofNullable(receitaEntity5));
 
-    public Page<ReceitaEntity> findAllByIdDesc(int page, int size){
-        return receitaRepository.findAllByOrderByIdDesc(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
+        var result = receitaService.findById(1l);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(new BigDecimal("900.00"), result.getValor());
+
     }
 
-    public List<ReceitaEntity> listAll(){
-        List<ReceitaEntity> receitaEntities = receitaRepository.findAll();
-        return receitaEntities;
+    @Test
+    void deveAtualizarReceita(){
+
+
+        Mockito.when(receitaRepository.findById(30l)).thenReturn(Optional.ofNullable(receitaEntity3));
+
+        receitaEntity3.setId(30l);
+        receitaEntity3.setName("Azur lane");
+
+        Mockito.when(receitaRepository.save(Mockito.any(ReceitaEntity.class))).thenReturn(receitaEntity3);
+        var classConvertida = ReceitaDTO.fromEntity(receitaEntity3);
+
+        var result = receitaService.updateReceita(30L, classConvertida );
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals("Azur lane", result.getName());
     }
 
-    public ReceitaEntity findById(Long id){
-        return receitaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Receita não encontrada com id "));
-    }
-
-    public ReceitaEntity createReceita(ReceitaDTO dto){
-        ReceitaEntity despesasEntity = new ReceitaEntity(dto);
-        var cadastrarReceita = receitaRepository.save(despesasEntity);
-        return cadastrarReceita;
-    }
-
-    public ReceitaEntity updateReceita(Long id, ReceitaDTO receitaDTOAtualizada){
-        var receitaExistente = receitaRepository.findById(id);
-        if (receitaExistente.isEmpty()){
-            throw new RuntimeException("Receita não encontrada com id: " + id);
-        }
-        ReceitaEntity receita = receitaExistente.get();
-        receita.setName(receitaDTOAtualizada.name());
-        receita.setDescricao(receitaDTOAtualizada.descricao());
-        receita.setCategoriaReceitaEnum(receitaDTOAtualizada.categoriaReceitaEnum());
-        receita.setValor(receitaDTOAtualizada.valor());
-        receita.setSituacaoEnum(receitaDTOAtualizada.situacaoEnum());
-        return receitaRepository.save(receita);
-    }
-
-    public void deleteReceita(Long id){
-        if (!receitaRepository.existsById(id)){
-            throw new RuntimeException("Receita não encontrada com id: " + id);
-        }
-        receitaRepository.deleteById(id);
-    }
-
-    public BigDecimal sumAll(){
-        var result = receitaRepository.sumAllByValor();
-        if (result == null) return BigDecimal.ZERO;
-        var valorFormatado = result.setScale(2, RoundingMode.HALF_UP);
-        return valorFormatado;
-    }
-
-    public BigDecimal sumByType(CategoriaReceitaEnum receitaEnum){
-        var result = receitaRepository.sumByType(receitaEnum);
-        if (result == null) return BigDecimal.ZERO;
-        var valorFormatado = result.setScale(2, RoundingMode.HALF_UP);
-        return valorFormatado;
-    }
-    public BigDecimal sumByTypeSituacion(SituacaoEnum situacaoEnumTest){
-        var result = receitaRepository.sumBySituacion(situacaoEnumTest);
-        if (result == null) return BigDecimal.ZERO;
-        var valorFormatado = result.setScale(2, RoundingMode.HALF_UP);
-        return valorFormatado;
-    }
-
-    public List<ReceitaEntity> receitaMes(Integer ano, Integer mes){
-        var resultado = receitaRepository.findByAnoMes(ano, mes);
-        return resultado;
-    }
-
-    public List<ReceitaEntity> listarComFiltros(CategoriaReceitaEnum categoriaReceitaEnum, SituacaoEnum situacaoEnumTest, Integer mes){
-        Specification<ReceitaEntity> spec = ReceitaRepository.comFiltros(categoriaReceitaEnum, situacaoEnumTest,mes);
-        return receitaRepository.findAll(spec);
-    }
-
-    public List<List<ReceitaEntity>> listBetweenTwoMonth(Integer ano, Integer  mesAnterior, Integer ano2, Integer mesPosterior){
-        var resultListMesAnterior = receitaRepository.selectBetweenTwoMonth(ano,mesAnterior);
-        var resultListMesPosterior = receitaRepository.selectBetweenTwoMonth(ano2,mesPosterior);
-
-        List<List<ReceitaEntity>> resultList = new ArrayList<>();
-        resultList.add(resultListMesAnterior);
-        resultList.add(resultListMesPosterior);
-
-        return resultList;
-    }
-
-    public List<ReceitaEntity> findByAutor(String autor){
-        return receitaRepository.findByAutor(autor);
-    }
 
 }

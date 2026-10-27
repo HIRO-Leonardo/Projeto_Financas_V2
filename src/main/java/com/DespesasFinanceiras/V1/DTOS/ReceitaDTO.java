@@ -1,5 +1,6 @@
 package com.DespesasFinanceiras.V1.DTOS;
 
+import com.DespesasFinanceiras.V1.Entity.ReceitaEntity;
 import com.DespesasFinanceiras.V1.Enuns.CategoriaReceitaEnum;
 import com.DespesasFinanceiras.V1.Enuns.SituacaoEnum;
 import jakarta.validation.constraints.NotBlank;
@@ -15,4 +16,16 @@ public record ReceitaDTO(@NotBlank(message = "Nome é obrigatório") String name
                          @NotNull(message = "Data é obrigatório ") LocalDateTime localDateTimeEntrada,
                          @NotNull(message = "Situação é obrigatório ") SituacaoEnum situacaoEnum,
                          @NotBlank(message = "Autor é brigatório!!") String autor) {
+
+    public static  ReceitaDTO fromEntity(ReceitaEntity entity){
+        return new ReceitaDTO(
+                entity.getName(),                  // ou getNome(), dependendo da Entidade
+                entity.getValor(),
+                entity.getDescricao(),
+                entity.getCategoriaReceitaEnum(),
+                entity.getLocalDateTimeEntrada(),
+                entity.getSituacaoEnum(),
+                entity.getAutor()
+        );
+    }
 }

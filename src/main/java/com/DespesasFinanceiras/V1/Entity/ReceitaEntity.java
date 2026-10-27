@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class ReceitaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,6 +48,17 @@ public class ReceitaEntity {
     @Schema(description = "Quem fez a despesa", example = "Daniel", required = true)
     private String autor;
 
+    public ReceitaEntity(Long id, String name, String descricao, BigDecimal valor, CategoriaReceitaEnum categoriaReceitaEnum, LocalDateTime localDateTimeEntrada, SituacaoEnum situacaoEnum, String autor) {
+        this.id = id;
+        this.name = name;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.categoriaReceitaEnum = categoriaReceitaEnum;
+        this.localDateTimeEntrada = localDateTimeEntrada;
+        this.situacaoEnum = situacaoEnum;
+        this.autor = autor;
+    }
+
     public ReceitaEntity(ReceitaDTO receitaDTO){
         this.name = receitaDTO.name();
         this.valor = receitaDTO.valor();
@@ -56,5 +67,16 @@ public class ReceitaEntity {
         this.localDateTimeEntrada = receitaDTO.localDateTimeEntrada();
         this.situacaoEnum = receitaDTO.situacaoEnum();
         this.autor = receitaDTO.autor();
+    }
+
+    public ReceitaEntity(String descricao,String name, BigDecimal valor, CategoriaReceitaEnum categoriaReceitaEnum, LocalDateTime localDateTimeEntrada, SituacaoEnum situacaoEnum, String autor) {
+        this.name = name;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.categoriaReceitaEnum = categoriaReceitaEnum;
+        this.localDateTimeEntrada = localDateTimeEntrada;
+        this.situacaoEnum = situacaoEnum;
+        this.autor = autor;
+
     }
 }
