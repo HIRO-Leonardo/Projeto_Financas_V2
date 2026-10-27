@@ -40,12 +40,12 @@
 - [x] Configurar springdoc-openapi
 - [x] Testar endpoints via Swagger UI
 ### 8. Testes
-- [ ] Testes unitários dos Services (JUnit + Mockito)
+- [x] Testes unitários dos Services (JUnit + Mockito)
 - [ ] Cobrir: criar, atualizar, deletar, calcular saldo
 ### 9. Docker
-- [ ] `docker-compose` com Postgres + aplicação
-- [ ] Configurar volume nomeado no Postgres (evitar perda de dados)
-- [ ] Variáveis de ambiente para configuração (DB_URL, DB_USER, DB_PASSWORD)
+- [x] `docker-compose` com Postgres + aplicação
+- [x] Configurar volume nomeado no Postgres (evitar perda de dados)
+- [x] Variáveis de ambiente para configuração (DB_URL, DB_USER, DB_PASSWORD)
 ---
 
 ## Ordem sugerida
