@@ -41,7 +41,7 @@
 - [x] Testar endpoints via Swagger UI
 ### 8. Testes
 - [x] Testes unitários dos Services (JUnit + Mockito)
-- [ ] Cobrir: criar, atualizar, deletar, calcular saldo
+- [x] Cobrir: criar, atualizar, deletar, calcular saldo
 ### 9. Docker
 - [x] `docker-compose` com Postgres + aplicação
 - [x] Configurar volume nomeado no Postgres (evitar perda de dados)
