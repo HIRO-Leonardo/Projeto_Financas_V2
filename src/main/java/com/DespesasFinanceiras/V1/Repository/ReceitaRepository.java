@@ -6,6 +6,7 @@ import com.DespesasFinanceiras.V1.Entity.DespesasEntity;
 import com.DespesasFinanceiras.V1.Entity.ReceitaEntity;
 import com.DespesasFinanceiras.V1.Enuns.CategoriaReceitaEnum;
 import com.DespesasFinanceiras.V1.Enuns.SituacaoEnum;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -22,9 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+
 public interface ReceitaRepository extends JpaRepository<ReceitaEntity,Long>, JpaSpecificationExecutor<ReceitaEntity> {
 
     static Specification<ReceitaEntity> comFiltros(
+
                 CategoriaReceitaEnum categoriaReceitaEnum,
                 SituacaoEnum situacaoEnum,
                 Integer mes) {
@@ -44,26 +47,34 @@ public interface ReceitaRepository extends JpaRepository<ReceitaEntity,Long>, Jp
             };
     }
 
+    @Cacheable("ReceitaEntity")
     @Query("SELECT SUM(r.valor) FROM ReceitaEntity r")
     BigDecimal sumAllByValor();
 
+    @Cacheable(value = "ReceitaEntity", key = "'sumByType_' + #categoria")
     @Query("SELECT SUM(r.valor) FROM ReceitaEntity r WHERE r.categoriaReceitaEnum = :categoria")
     BigDecimal sumByType(@Param("categoria") CategoriaReceitaEnum categoria);
 
+    @Cacheable("ReceitaEntity")
     @Query("SELECT SUM(r.valor) FROM ReceitaEntity r WHERE r.situacaoEnum = :situacao")
     BigDecimal sumBySituacion(@Param("situacao") SituacaoEnum situacao);
 
+    @Cacheable(value = "ReceitaEntity", key = "'findByAnoMes_' + #ano + '_' + #mes")
     @Query("SELECT r FROM ReceitaEntity r WHERE EXTRACT(YEAR FROM r.localDateTimeEntrada) = ?1 AND EXTRACT(MONTH FROM r.localDateTimeEntrada) = ?2")
     List<ReceitaEntity> findByAnoMes(Integer ano, Integer mes);
 
+    @Cacheable("ReceitaEntity")
     @Query("SELECT r FROM ReceitaEntity r WHERE EXTRACT(YEAR FROM r.localDateTimeEntrada) = :ano AND EXTRACT(MONTH FROM r.localDateTimeEntrada) = :mes")
     List<ReceitaEntity> selectBetweenTwoMonth(@Param("ano") Integer ano, @Param("mes") Integer mesAnterior);
 
+    @Cacheable("ReceitaEntity")
     @Query("SELECT r FROM ReceitaEntity r WHERE EXTRACT(YEAR FROM r.localDateTimeEntrada) = :ano AND EXTRACT(MONTH FROM r.localDateTimeEntrada) = :mes")
     List<ReceitaEntity> listAllReceitaPerMonth(@Param("ano") Integer ano, @Param("mes") Integer mes);
 
+    @Cacheable("ReceitaEntity")
     List<ReceitaEntity> findByAutor(String autor);
 
+    @Cacheable("ReceitaEntity")
     Page<ReceitaEntity> findAllByOrderByIdDesc(Pageable pageable);
 
 }

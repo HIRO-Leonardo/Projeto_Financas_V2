@@ -6,6 +6,8 @@ import com.DespesasFinanceiras.V1.Enuns.CategoriaReceitaEnum;
 import com.DespesasFinanceiras.V1.Enuns.SituacaoEnum;
 import com.DespesasFinanceiras.V1.Exceptions.NotFoundException;
 import com.DespesasFinanceiras.V1.Repository.ReceitaRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -41,13 +43,13 @@ public class ReceitaService {
         return receitaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Receita não encontrada com id "));
     }
-
+    @CacheEvict(value = "ReceitaEntity", allEntries = true)
     public ReceitaEntity createReceita(ReceitaDTO dto){
         ReceitaEntity despesasEntity = new ReceitaEntity(dto);
         var cadastrarReceita = receitaRepository.save(despesasEntity);
         return cadastrarReceita;
     }
-
+    @CacheEvict(value = "ReceitaEntity", allEntries = true)
     public ReceitaEntity updateReceita(Long id, ReceitaDTO receitaDTOAtualizada){
         var receitaExistente = receitaRepository.findById(id);
         if (receitaExistente.isEmpty()){
@@ -61,7 +63,7 @@ public class ReceitaService {
         receita.setSituacaoEnum(receitaDTOAtualizada.situacaoEnum());
         return receitaRepository.save(receita);
     }
-
+    @CacheEvict(value = "ReceitaEntity", allEntries = true)
     public void deleteReceita(Long id){
         if (!receitaRepository.existsById(id)){
             throw new NotFoundException("Receita não encontrada com id: " + id);
