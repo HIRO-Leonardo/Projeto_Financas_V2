@@ -47,7 +47,7 @@
 - [x] Configurar volume nomeado no Postgres (evitar perda de dados)
 - [x] Variáveis de ambiente para configuração (DB_URL, DB_USER, DB_PASSWORD)
 ### 10. Cache
-- [x] Adicionar Cache
+- [ ] Adicionar Cache
 
 ### 11. JWT
 - [ ] Adicionar Autenticação 
