@@ -4,6 +4,7 @@ import com.DespesasFinanceiras.V1.Entity.DespesasEntity;
 import com.DespesasFinanceiras.V1.Entity.ReceitaEntity;
 import com.DespesasFinanceiras.V1.Enuns.CategoriaEnum;
 import com.DespesasFinanceiras.V1.Enuns.SituacaoEnum;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,7 @@ import java.util.List;
 @Repository
 public interface DespesasRepository extends JpaRepository<DespesasEntity, Long> {
 
+    @Cacheable(value = "ReceitaEntity", key = "'sumByTipo_' + #categoria")
     @Query("SELECT SUM(d.valor) FROM DespesasEntity d WHERE d.situacaoEnum = :situacao")
     BigDecimal sumByTipo(@Param("situacao") SituacaoEnum situacao);
 

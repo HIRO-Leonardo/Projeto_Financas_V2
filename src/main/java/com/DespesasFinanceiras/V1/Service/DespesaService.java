@@ -8,6 +8,8 @@ import com.DespesasFinanceiras.V1.Exceptions.NotFoundException;
 import com.DespesasFinanceiras.V1.Repository.DespesasRepository;
 import com.DespesasFinanceiras.V1.Repository.TotalPorCategoria;
 import jakarta.validation.Valid;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,13 +37,13 @@ public class DespesaService {
     }
 
 
-
+    @CacheEvict(value = "DespesaEntity", allEntries = true)
     public DespesasEntity createDespesa(DespesaDTO dto){
         DespesasEntity despesasEntity = new DespesasEntity(dto);
         var cadastrarDespesa = despesasRepository.save(despesasEntity);
         return cadastrarDespesa;
     }
-
+    @CachePut(value = "DespesaEntity", key = "#result.id")
     public DespesasEntity updateDespesa(Long id, @Valid DespesaDTO despesaDTOAtualizado){
         var despesaExistente = despesasRepository.findById(id);
         if (despesaExistente.isEmpty()){
@@ -55,7 +57,7 @@ public class DespesaService {
         despesas.setSituacaoEnum(despesaDTOAtualizado.situacaoEnum());
         return despesasRepository.save(despesas);
     }
-
+    @CacheEvict(value = "DespesaEntity", allEntries = true)
     public boolean deleteDespesa(Long id){
         if (!despesasRepository.existsById(id)){
             throw new NotFoundException("Despesa não encontrada com id: " + id);

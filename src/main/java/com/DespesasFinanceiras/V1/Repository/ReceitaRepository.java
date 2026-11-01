@@ -47,7 +47,7 @@ public interface ReceitaRepository extends JpaRepository<ReceitaEntity,Long>, Jp
             };
     }
 
-    @Cacheable("ReceitaEntity")
+
     @Query("SELECT SUM(r.valor) FROM ReceitaEntity r")
     BigDecimal sumAllByValor();
 
@@ -55,7 +55,7 @@ public interface ReceitaRepository extends JpaRepository<ReceitaEntity,Long>, Jp
     @Query("SELECT SUM(r.valor) FROM ReceitaEntity r WHERE r.categoriaReceitaEnum = :categoria")
     BigDecimal sumByType(@Param("categoria") CategoriaReceitaEnum categoria);
 
-    @Cacheable("ReceitaEntity")
+
     @Query("SELECT SUM(r.valor) FROM ReceitaEntity r WHERE r.situacaoEnum = :situacao")
     BigDecimal sumBySituacion(@Param("situacao") SituacaoEnum situacao);
 
@@ -71,7 +71,7 @@ public interface ReceitaRepository extends JpaRepository<ReceitaEntity,Long>, Jp
     @Query("SELECT r FROM ReceitaEntity r WHERE EXTRACT(YEAR FROM r.localDateTimeEntrada) = :ano AND EXTRACT(MONTH FROM r.localDateTimeEntrada) = :mes")
     List<ReceitaEntity> listAllReceitaPerMonth(@Param("ano") Integer ano, @Param("mes") Integer mes);
 
-    @Cacheable("ReceitaEntity")
+
     List<ReceitaEntity> findByAutor(String autor);
 
     @Cacheable("ReceitaEntity")

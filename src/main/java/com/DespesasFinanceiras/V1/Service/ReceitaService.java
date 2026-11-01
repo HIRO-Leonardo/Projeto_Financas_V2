@@ -7,6 +7,7 @@ import com.DespesasFinanceiras.V1.Enuns.SituacaoEnum;
 import com.DespesasFinanceiras.V1.Exceptions.NotFoundException;
 import com.DespesasFinanceiras.V1.Repository.ReceitaRepository;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,7 +50,7 @@ public class ReceitaService {
         var cadastrarReceita = receitaRepository.save(despesasEntity);
         return cadastrarReceita;
     }
-    @CacheEvict(value = "ReceitaEntity", allEntries = true)
+    @CachePut(value = "ReceitaEntity", key = "#result.id")
     public ReceitaEntity updateReceita(Long id, ReceitaDTO receitaDTOAtualizada){
         var receitaExistente = receitaRepository.findById(id);
         if (receitaExistente.isEmpty()){
