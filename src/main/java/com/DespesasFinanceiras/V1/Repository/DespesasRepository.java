@@ -19,7 +19,7 @@ import java.util.List;
 @Repository
 public interface DespesasRepository extends JpaRepository<DespesasEntity, Long> {
 
-    @Cacheable(value = "ReceitaEntity", key = "'sumByTipo_' + #categoria")
+    @Cacheable(value = "DespesaEntity", key = "'sumByTipo_' + #categoria")
     @Query("SELECT SUM(d.valor) FROM DespesasEntity d WHERE d.situacaoEnum = :situacao")
     BigDecimal sumByTipo(@Param("situacao") SituacaoEnum situacao);
 
