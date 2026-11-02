@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   template: `
-    <div class="app-layout">
+    <router-outlet *ngIf="!showLayout"></router-outlet>
+    <div class="app-layout" *ngIf="showLayout">
       <!-- Overlay (mobile) -->
       <div class="sidebar-overlay" [class.visible]="sidebarOpen" (click)="closeSidebar()"></div>
 
@@ -45,6 +47,9 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
         </nav>
 
         <div class="sidebar-footer">
+          <button class="logout-btn" (click)="logout()">
+            <span class="material-icons-outlined">logout</span> Sair
+          </button>
           <span class="material-icons-outlined">calendar_today</span>
           <span class="footer-date">Sistema de Finanças v1.0</span>
         </div>
@@ -204,13 +209,13 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
     /* ===== Main Content ===== */
     .main-content {
-      flex: 1;
+      flex: 1; min-width: 0;
       margin-left: 260px;
       min-height: 100vh;
       background: var(--bg);
     }
 
-    .page-content {
+    .page-content { min-width: 0;
       padding: 32px;
     }
 
@@ -266,10 +271,26 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
         padding: 10px 16px;
       }
     }
+    .logout-btn {
+      display: flex; align-items: center; gap: 6px; margin-right: 12px;
+      background: none; border: none; color: var(--sidebar-text); cursor: pointer; font: inherit;
+    }
+    .logout-btn:hover { color: white; }
   `]
 })
 export class AppComponent {
+  private auth = inject(AuthService);
+  private router = inject(Router);
   sidebarOpen = false;
+
+  get showLayout(): boolean {
+    return !this.router.url.startsWith('/login');
+  }
+
+  logout(): void {
+    this.closeSidebar();
+    this.auth.logout();
+  }
 
   toggleSidebar(): void {
     this.sidebarOpen = !this.sidebarOpen;

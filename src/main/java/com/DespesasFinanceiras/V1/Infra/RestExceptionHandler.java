@@ -38,6 +38,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDTO);
         }
 
+        @ExceptionHandler(org.springframework.security.core.AuthenticationException.class)
+        public ResponseEntity<ErrorDTO> authFailed(org.springframework.security.core.AuthenticationException exception){
+            ErrorDTO errorDTO = new ErrorDTO("401","Unauthorized", "E-mail ou senha inválidos");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorDTO);
+        }
+
         @ExceptionHandler(OperationNotAllowedException.class)
         public ResponseEntity<ErrorDTO> operationNotAllowed(OperationNotAllowedException exception){
             ErrorDTO errorDTO = new ErrorDTO("403","Forbidden", exception.getMessage());

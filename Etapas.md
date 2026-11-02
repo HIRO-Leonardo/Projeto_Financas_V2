@@ -50,7 +50,7 @@
 - [x] Adicionar Cache
 
 ### 11. JWT
-- [ ] Adicionar Autenticação 
+- [x] Adicionar Autenticação 
 
 ---
 

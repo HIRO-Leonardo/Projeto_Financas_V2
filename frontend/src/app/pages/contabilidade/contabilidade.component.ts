@@ -143,13 +143,13 @@ import { MESES, SITUACAO_LABELS } from '../../models/shared.model';
     </div>
   `,
   styles: [`
-    .page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+    .page-header { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
     .page-header h1 { font-size: 28px; font-weight: 700; }
     .subtitle { color: var(--text-secondary); margin-top: 4px; }
     .filters { display: flex; gap: 10px; }
     .filters select { width: 160px; }
 
-    .summary-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 28px; }
+    .summary-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-bottom: 28px; }
     .summary-card {
       background: white; border-radius: var(--radius); padding: 24px;
       display: flex; align-items: center; gap: 16px; box-shadow: var(--shadow);
@@ -165,21 +165,22 @@ import { MESES, SITUACAO_LABELS } from '../../models/shared.model';
     .red .card-icon { background: linear-gradient(135deg, #ef4444, #dc2626); }
     .positive .card-icon { background: linear-gradient(135deg, #22c55e, #16a34a); }
     .negative .card-icon { background: linear-gradient(135deg, #ef4444, #dc2626); }
-    .card-info { display: flex; flex-direction: column; }
+    .card-info { display: flex; flex-direction: column; min-width: 0; }
     .card-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
     .card-value { font-size: 22px; font-weight: 700; margin-top: 4px; }
 
     .chart-section h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
-    .chart-container { position: relative; height: 340px; }
+    .chart-container { position: relative; height: 340px; width: 100%; min-width: 0; }
     .chart-container-sm { position: relative; height: 300px; max-width: 500px; margin: 0 auto; }
 
-    .tables-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .tables-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+    .tables-row > *, .summary-card { min-width: 0; }
     .table-wrapper { overflow-x: auto; }
     h3 { font-size: 16px; font-weight: 600; }
 
     @media (max-width: 1024px) {
-      .summary-row { grid-template-columns: 1fr; }
-      .tables-row { grid-template-columns: 1fr; }
+      .summary-row { grid-template-columns: minmax(0, 1fr); }
+      .tables-row { grid-template-columns: minmax(0, 1fr); }
     }
   `]
 })
