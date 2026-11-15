@@ -53,6 +53,26 @@ Um sistema completo para gerenciamento de finanças pessoais, projetado para uso
 
 ##  Como Executar o Projeto
 
+### Opção 1: com Docker (recomendado)
+
+**Pré-requisitos:** Docker e Docker Compose instalados.
+
+```bash
+docker compose up --build
+```
+
+<!-- CONFIRME: o comando acima e as portas abaixo -->
+* API: `http://localhost:8080`
+* Swagger: `http://localhost:8080/swagger-ui.html`
+
+Para parar e remover os containers:
+
+```bash
+docker compose down
+```
+
+### Opção 2: manualmente
+
 ### Pré-requisitos
 * Java 21+ instalado.
 * Maven instalado.
