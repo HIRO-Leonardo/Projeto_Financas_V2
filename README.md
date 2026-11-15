@@ -11,7 +11,6 @@
 
 
 
-
 Um sistema completo para gerenciamento de finanças pessoais, projetado para uso local, permitindo o controle rigoroso de receitas, despesas, saldo e geração de relatórios.
 
 ##  Tecnologias Utilizadas
@@ -45,14 +44,10 @@ Um sistema completo para gerenciamento de finanças pessoais, projetado para uso
 * **Tratamento de Exceções:** Sistema centralizado com `@ControllerAdvice` e exceções customizadas para respostas claras (ex: 404, 400).
 * **Validações:** Regras de negócio restritas (valores não negativos, datas obrigatórias, etc).
 * **Documentação de API:** Endpoints mapeados e testáveis via Swagger UI.
-
-### Próximos Passos (Roadmap)
 * **Testes:** Implementação de testes unitários com JUnit e Mockito para as camadas de serviço.
 * **Autores:** Adição da funcionalidade de registrar o "Autor" ou responsável por cada despesa.
 * **Dockerização:** Criação de ambiente via `docker-compose` para o PostgreSQL e a aplicação com volumes nomeados.
 * **Autenticação:** Implementação futura de Spring Security com JWT.
-
----
 
 ##  Como Executar o Projeto
 
