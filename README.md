@@ -44,10 +44,10 @@ Um sistema completo para gerenciamento de finanças pessoais, projetado para uso
 * **Tratamento de Exceções:** Sistema centralizado com `@ControllerAdvice` e exceções customizadas para respostas claras (ex: 404, 400).
 * **Validações:** Regras de negócio restritas (valores não negativos, datas obrigatórias, etc).
 * **Documentação de API:** Endpoints mapeados e testáveis via Swagger UI.
-* **Testes:** Implementação de testes unitários com JUnit e Mockito para as camadas de serviço.
-* **Autores:** Adição da funcionalidade de registrar o "Autor" ou responsável por cada despesa.
-* **Dockerização:** Criação de ambiente via `docker-compose` para o PostgreSQL e a aplicação com volumes nomeados.
-* **Autenticação:** Implementação futura de Spring Security com JWT.
+* **Testes:** Implementado testes unitários com JUnit e Mockito para as camadas de serviço.
+* **Autores:** Adicionado funcionalidade de registrar o "Autor" ou responsável por cada despesa.
+* **Dockerização:** Criado ambiente via `docker-compose` para o PostgreSQL e a aplicação com volumes nomeados.
+* **Autenticação:** Implementado do Spring Security com JWT.
 
 ##  Como Executar o Projeto
 
