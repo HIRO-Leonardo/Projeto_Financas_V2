@@ -32,7 +32,9 @@ Um sistema completo para gerenciamento de finanças pessoais, projetado para uso
 
 ## Funcionalidades
 
+
 ### Implementadas
+
 * **Gestão de Despesas e Receitas:** Operações completas de CRUD (Create, Read, Update, Delete com *soft-delete*).
 * **Filtros Avançados:** Busca combinada por mês, categoria e situação (pago/pendente/atrasado).
 * **Cálculo de Saldo:** Subtração automática de despesas sobre as receitas, com endpoint dedicado para consulta.
